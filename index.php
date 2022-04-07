@@ -65,6 +65,11 @@
             {
                 $gender_error="You must select your gender before submitting";
             }
+
+            if(empty($name_error)  && empty($email_error)  && empty($gender_error))
+            {
+                echo "<span style='color:green; font-weght:bold; '>Successfully Registered </span>";
+            }
         }
        
         
@@ -72,21 +77,25 @@
     <br><br>
     <form method="POST">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name"><br>
+        <input type="text" id="name" name="name" placeholder="Enter your name"
+            value="<?php if(isset($_POST['name'])) { echo $name; } ?>"><br>
         <?php  echo "<span style='color:red; font-weght:bold; '>$name_error</span>"; ?>
         <br><br>
 
 
-        <label for="email">Email</label><br><br>
-        <input type="email" id="email" name="email" placeholder="Enter your email"><br>
+        <label for=" email">Email</label><br><br>
+        <input type="email" id="email" name="email" placeholder="Enter your email"
+            value="<?php if(isset($_POST['email'])) { echo $email; } ?>">
+
+        <br>
         <?php  echo "<span style='color:red; font-weght:bold; '>$email_error</span>"; ?>
 
         <br><br>
 
 
         <label for="website">Website</label><br><br>
-        <input type="website" id="website" name="website" placeholder="Enter your email">
-
+        <input type="website" id="website" name="website" placeholder="Enter your website"
+            value="<?php if(isset($_POST['name'])) { echo $name; } ?>">
         <br><br>
         <label for="gender">Gender</label><br><br>
         <input type="radio" id="gender" value="male" name="gender">Male <br>
@@ -95,7 +104,8 @@
         <br><br>
 
         <label for="comment">Comment</label><br><br>
-        <textarea name="comment" id="comment" cols="20" rows="5"></textarea>
+        <textarea name="comment" id="comment" cols="20"
+            rows="5"> <?php if(isset($_POST['name'])) { echo $name; } ?></textarea>
 
         <br><br>
 
