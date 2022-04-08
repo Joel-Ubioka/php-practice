@@ -66,7 +66,7 @@
                 $gender_error="You must select your gender before submitting";
             }
 
-            if(empty($name_error)  && empty($email_error)  && empty($gender_error))
+            if($name_error==""  && $email_error==""  && $gender_error=="")
             {
                 echo "<span style='color:green; font-weght:bold; '>Successfully Registered </span>";
             }
