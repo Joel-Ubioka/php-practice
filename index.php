@@ -71,6 +71,7 @@
                 $invalid_email="Enter correct email address";
             }
 
+          
             if(!preg_match("/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/", $website))
             {
                 $invalid_website ="Enter valid website";
@@ -111,8 +112,8 @@
 
 
         <label for="website">Website</label><br><br>
-        <input type="website" id="website" name="website" placeholder="Enter your website"
-            value="<?php if(isset($_POST['name'])) { echo $name; } ?>"><br>
+        <input type="text" id="website" name="website" placeholder="Enter your website"
+            value="<?php if(isset($_POST['website'])) { echo $website; } ?>"><br>
         <?php  echo "<span style='color:red; font-weght:bold; '>$invalid_website</span>"; ?>
         <br><br>
         <label for="gender">Gender</label><br><br>
