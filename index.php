@@ -36,7 +36,7 @@
            
         */
         
-        $name_error = $email_error = $gender_error = "";
+        $invalid_website = $invalid_email = $only_letters = $name_error = $email_error = $gender_error = "";
 
         if(isset($_POST['submit']))
         {
@@ -56,9 +56,24 @@
                 $name_error="You must enter your name before submitting";
             }
 
+            if(!preg_match("/^[a-zA-Z ]*$/", $name))
+            {
+                $only_letters="You are required to enter only letters";
+            }
+
             if(empty(  $email))
             {
                 $email_error="You must enter your email before submitting";
+            }
+
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $invalid_email="Enter correct email address";
+            }
+
+            if(!preg_match("/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/", $website))
+            {
+                $invalid_website ="Enter valid website";
             }
 
             if(empty( $gender))
@@ -80,32 +95,37 @@
         <input type="text" id="name" name="name" placeholder="Enter your name"
             value="<?php if(isset($_POST['name'])) { echo $name; } ?>"><br>
         <?php  echo "<span style='color:red; font-weght:bold; '>$name_error</span>"; ?>
+        <?php  echo "<span style='color:red; font-weght:bold; '>$only_letters</span>"; ?>
         <br><br>
 
 
         <label for=" email">Email</label><br><br>
-        <input type="email" id="email" name="email" placeholder="Enter your email"
+        <input type="text" id="email" name="email" placeholder="Enter your email"
             value="<?php if(isset($_POST['email'])) { echo $email; } ?>">
 
         <br>
         <?php  echo "<span style='color:red; font-weght:bold; '>$email_error</span>"; ?>
+        <?php  echo "<span style='color:red; font-weght:bold; '>$invalid_email</span>"; ?>
 
         <br><br>
 
 
         <label for="website">Website</label><br><br>
         <input type="website" id="website" name="website" placeholder="Enter your website"
-            value="<?php if(isset($_POST['name'])) { echo $name; } ?>">
+            value="<?php if(isset($_POST['name'])) { echo $name; } ?>"><br>
+        <?php  echo "<span style='color:red; font-weght:bold; '>$invalid_website</span>"; ?>
         <br><br>
         <label for="gender">Gender</label><br><br>
-        <input type="radio" id="gender" value="male" name="gender">Male <br>
-        <input type="radio" id="gender" value="female" name="gender">Female <br>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$gender_error</span>"; ?>
-        <br><br>
+        <input type="radio" id="gender" value="male" name="gender"
+            <?php  if(isset($_POST['gender'])  && $gender == "Male" ) { echo "checked";}    ?>> Male <br>
+
+        <input type="radio" id="gender" value="female" name="gender"
+            <?php  if(isset($_POST['gender'])  && $gender == "Female" ) { echo "checked";}    ?>>Female <br>
+        <?php  echo "<span style='color:red; font-weght:bold; '>$gender_error</span>"; ?> <br><br>
 
         <label for="comment">Comment</label><br><br>
         <textarea name="comment" id="comment" cols="20"
-            rows="5"> <?php if(isset($_POST['name'])) { echo $name; } ?></textarea>
+            rows="5"> <?php if(isset($_POST['comment'])) { echo $comment; } ?></textarea>
 
         <br><br>
 
