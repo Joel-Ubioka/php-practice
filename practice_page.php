@@ -25,24 +25,31 @@ if(isset($_POST['upload']))
 
     if(in_array( $file_ext, $allowed_ext ))
     {
-        if( $file_size < 1048576)
+        if( $file_error == 0)
         {
-           $file_name_new = uniqid('', true).".". $file_ext;
-           $file_destination = 'images/'.$file_name_new;
-           if(move_uploaded_file($file_tmp_name , $file_destination)) 
-           {
-            echo "<p style='color:green;'>succesfully uploaded</p>";
-            
-           }
-           else
-           {
-            echo  "<p style='color:red;'>Failed to upload</p>"; 
-           }
-        }
+            if( $file_size < 1048576)
+            {
+            $file_name_new = uniqid('', true).".". $file_ext;
+            $file_destination = 'images/'.$file_name_new;
+            if(move_uploaded_file($file_tmp_name , $file_destination)) 
+            {
+                echo "<p style='color:green;'>succesfully uploaded</p>";
+                
+            }
+            else
+            {
+                echo  "<p style='color:red;'>Failed to upload</p>"; 
+            }
+            }
+            else
+            {
+                echo "<p style='color:red;'>You can not allowed to upload file more than 1mb</p>"; 
+            }
+        }  
         else
         {
-            echo "<p style='color:red;'>You can not allowed to upload file more than 1mb</p>"; 
-        }
+            echo "<p style='color:red;'>Error while uploading the file</p>"; 
+        }  
     }
     else
     {
