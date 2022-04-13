@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <?php include "./includes/header.php" ?>
+
+    <br><br>
     <h1>REGISTRATION PAGE</h1>
     <?php
         /*if(isset($_GET['error']))
@@ -36,7 +39,7 @@
            
         */
         
-        $invalid_website = $invalid_email = $only_letters = $name_error = $email_error = $gender_error = "";
+         $invalid_email = $only_letters = $name_error = $email_error = $gender_error = "";
 
         if(isset($_POST['submit']))
         {
@@ -72,10 +75,7 @@
             }
 
           
-            if(!preg_match("/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/", $website))
-            {
-                $invalid_website ="Enter valid website";
-            }
+          
 
             if(empty( $gender))
             {
@@ -90,23 +90,25 @@
        
         
         ?>
+    <span style='color:red; font-weight:bold; '>*</span><span font-weight:bold; '>  Required</span>
     <br><br>
     <form method="POST">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Enter your name"
-            value="<?php if(isset($_POST['name'])) { echo $name; } ?>"><br>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$name_error</span>"; ?>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$only_letters</span>"; ?>
+            value="<?php if(isset($_POST['name'])) { echo $name; } ?>"> <span
+            style=' color:red; font-weight:bold; '>*</span><br>
+        <?php  echo "<span style='color:red; font-weight:bold; '>$name_error</span>"; ?>
+        <?php  echo "<span style='color:red; font-weight:bold; '>$only_letters</span>"; ?>
         <br><br>
 
 
         <label for=" email">Email</label><br><br>
         <input type="text" id="email" name="email" placeholder="Enter your email"
-            value="<?php if(isset($_POST['email'])) { echo $email; } ?>">
+            value="<?php if(isset($_POST['email'])) { echo $email; } ?>">  <span style=' color:red; font-weight:bold; '>*</span>
 
         <br>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$email_error</span>"; ?>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$invalid_email</span>"; ?>
+        <?php  echo "<span style='color:red; font-weight:bold; '>$email_error</span>"; ?>
+        <?php  echo "<span style='color:red; font-weight:bold; '>$invalid_email</span>"; ?>
 
         <br><br>
 
@@ -114,15 +116,15 @@
         <label for="website">Website</label><br><br>
         <input type="text" id="website" name="website" placeholder="Enter your website"
             value="<?php if(isset($_POST['website'])) { echo $website; } ?>"><br>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$invalid_website</span>"; ?>
+
         <br><br>
-        <label for="gender">Gender</label><br><br>
+        <label for="gender">Gender</label>  <span style=' color:red; font-weight:bold; '>*</span><br><br>
         <input type="radio" id="gender" value="male" name="gender"
             <?php  if(isset($_POST['gender'])  && $gender == "Male" ) { echo "checked";}    ?>> Male <br>
 
         <input type="radio" id="gender" value="female" name="gender"
             <?php  if(isset($_POST['gender'])  && $gender == "Female" ) { echo "checked";}    ?>>Female <br>
-        <?php  echo "<span style='color:red; font-weght:bold; '>$gender_error</span>"; ?> <br><br>
+        <?php  echo "<span style='color:red; font-weight:bold; '>$gender_error</span>"; ?> <br><br>
 
         <label for="comment">Comment</label><br><br>
         <textarea name="comment" id="comment" cols="20"
