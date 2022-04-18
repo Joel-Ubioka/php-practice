@@ -1,3 +1,4 @@
+<?php session_start()  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
 </head>
 
 <body>
-    <?php include "./includes/header.php" ?>
+    <?php //include "./includes/header.php" ?>
 
     <br><br>
     <h1>REGISTRATION PAGE</h1>
@@ -46,6 +47,13 @@
             $name = htmlspecialchars(trim($_POST['name']));
             $email = htmlspecialchars(trim($_POST['email']));
             $website = htmlspecialchars(trim($_POST['website']));
+
+            $_SESSION['name'] =  $name; 
+            
+            $_SESSION['email'] =  $email; 
+            
+            $_SESSION['website'] =  $website; 
+        
 
             if(isset($_POST['gender']))
             {

@@ -1,3 +1,4 @@
+<?php session_start()  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,20 @@
 
 <body>
     <?php
+
+$website = "https://www.morrhtechsolutions.com";
+$website = filter_var($website, FILTER_SANITIZE_URL);
+ 
+ if(filter_var($website , FILTER_VALIDATE_URL))
+ {
+     echo "valid website";
+ }
+ else
+ {
+     echo "invalid website";
+ }
+
+    /*
 if(isset($_POST['upload']))
 {
     $file = $_FILES['profile_picture'];
@@ -56,11 +71,10 @@ if(isset($_POST['upload']))
         echo "<p style='color:red;'>You can not upload a file of this type</p>"; 
     }
 }
+ */
 ?>
 
-
-
-
+    <!--
 
     <h1>UPLOAD YOUR PROFILE PIC</h1><br><br>
     <p>File allowed *.JPG *.JPEG *.PNG *.GIF</p>
@@ -68,6 +82,7 @@ if(isset($_POST['upload']))
         <input type="file" name="profile_picture" class="picture_control"><br><br>
         <button type="submit" class="picture_button" name="upload">Upload </button>
     </form>
+-->
 </body>
 
 </html>
