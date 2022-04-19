@@ -44,6 +44,8 @@
 
         if(isset($_POST['submit']))
         {
+
+            require "includes/practice_db.php";
             $name = htmlspecialchars(trim($_POST['name']));
             $email = htmlspecialchars(trim($_POST['email']));
             $website = htmlspecialchars(trim($_POST['website']));
@@ -90,10 +92,76 @@
                 $gender_error="You must select your gender before submitting";
             }
 
-            if($name_error==""  && $email_error==""  && $gender_error=="")
+           
+
+            else
             {
-                echo "<span style='color:green; font-weght:bold; '>Successfully Registered </span>";
+                /*
+                $sql = "INSERT INTO students_table ( name, email, website, gender, comment) VALUES('$name', '$email', '$website', '$gender', '$comment')";
+              
+                if(mysqli_query($conn, $sql))
+                {
+                    echo "<span style='color:green; font-weight:bold; '>Succesfully Registered</span>";
+                }
+
+                else
+                {
+                    echo "<span style='color:red; font-weight:bold; '>Registration Failed</span>";
+                }
+                
+                $sql = "INSERT INTO students_table ( name, email, website, gender, comment) VALUES(?,?,?,?,?)";
+                $conn_stmt = mysqli_stmt_init($conn);
+                if(!mysqli_stmt_prepare($conn_stmt, $sql))
+                {
+                    echo "<span style='color:red; font-weight:bold; '>Connection Failed</span>";
+                }
+                else
+                {
+                   mysqli_stmt_bind_param($conn_stmt, "sssss", $name, $email, $website, $gender, $comment);
+                   mysqli_stmt_execute($conn_stmt); 
+                   
+                   echo "<span style='color:green; font-weight:bold; '>Succesfully Registered</span>";
+                }
+                mysqli_close($conn);
+                */
+
+                $sql = "SELECT * FROM students_table";
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result) > 0)
+                {
+                    echo "<table>";
+                    echo "
+                         <th>Name</th>
+                         <th>Email</th>
+                         <th>Website</th>
+                         <th>Gender</th>
+                         <th>Comment</th>
+                    
+                    ";
+                    while ($retrieve = mysqli_fetch_array($result))
+                    {
+                        $name = $retrieve['name'];
+                        $email = $retrieve['email'];
+                        $website = $retrieve['website'];
+                        $gender = $retrieve['gender'];
+                        $comment = $retrieve['comment'];
+
+                        echo "
+                             <tr>
+                                  <td>$name</td>
+                                  <td>$email</td>
+                                  <td>$website</td>
+                                  <td>$gender</td>
+                                  <td>$comment</td>
+                             
+
+                             </tr>
+                             ";
+                    }
+                    echo "</table>";
+                }
             }
+            
         }
        
         
