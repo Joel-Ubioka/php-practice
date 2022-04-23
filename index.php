@@ -108,7 +108,43 @@
                 {
                     echo "<span style='color:red; font-weight:bold; '>Registration Failed</span>";
                 }
-                
+                 */
+                $sql = "SELECT  email FROM students_table  where email = '$email'";
+                $result = mysqli_query($conn, $sql);
+
+                if(mysqli_num_rows($result) > 0)
+                {
+                   // echo "<span style='color:red; font-weight:bold; '>You are already registered</span>";
+                    /*
+                   $sql = "UPDATE students_table SET name = '$name', email = '$email', website = '$website', gender= '$gender', comment = '$comment' where email = '$email'0";
+                   if(mysqli_query($conn, $sql))
+                   {
+                    echo "<span style='color:green; font-weight:bold; '>Succesfully Updated</span>"; 
+                   }
+                   else
+                   {
+                    echo "<span style='color:red; font-weight:bold; '>Update Failed</span>"; 
+                   }
+                   */
+
+                   $sql ="UPDATE students_table SET name = ?, email = ?, website =?, gender = ?, comment = ? where email = '$email'";
+                   $conn_init = mysqli_stmt_init($conn);
+                   if(mysqli_stmt_prepare( $conn_init,   $sql))
+                   {
+                       mysqli_stmt_bind_param($conn_init, "sssss", $name, $email, $website, $gender, $comment);
+                       mysqli_stmt_execute($conn_init);
+
+                       echo "<span style='color:green; font-weight:bold; '>Succesfully Updated</span>"; 
+                   }
+                   else
+                   {
+                    echo "<span style='color:red; font-weight:bold; '>Update Failed</span>";  
+                   }
+                   mysqli_close($conn);
+                }
+                else
+                {
+                 
                 $sql = "INSERT INTO students_table ( name, email, website, gender, comment) VALUES(?,?,?,?,?)";
                 $conn_stmt = mysqli_stmt_init($conn);
                 if(!mysqli_stmt_prepare($conn_stmt, $sql))
@@ -123,43 +159,9 @@
                    echo "<span style='color:green; font-weight:bold; '>Succesfully Registered</span>";
                 }
                 mysqli_close($conn);
-                */
-
-                $sql = "SELECT * FROM students_table";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result) > 0)
-                {
-                    echo "<table>";
-                    echo "
-                         <th>Name</th>
-                         <th>Email</th>
-                         <th>Website</th>
-                         <th>Gender</th>
-                         <th>Comment</th>
-                    
-                    ";
-                    while ($retrieve = mysqli_fetch_array($result))
-                    {
-                        $name = $retrieve['name'];
-                        $email = $retrieve['email'];
-                        $website = $retrieve['website'];
-                        $gender = $retrieve['gender'];
-                        $comment = $retrieve['comment'];
-
-                        echo "
-                             <tr>
-                                  <td>$name</td>
-                                  <td>$email</td>
-                                  <td>$website</td>
-                                  <td>$gender</td>
-                                  <td>$comment</td>
-                             
-
-                             </tr>
-                             ";
-                    }
-                    echo "</table>";
-                }
+               
+            }
+               
             }
             
         }
